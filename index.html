@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Dark Academy Login</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="login-container">
+    <h1>Dark Academy</h1>
+    <input type="text" id="login-email" placeholder="Email">
+    <input type="password" id="login-password" placeholder="Senha">
+    <button onclick="login()">Login</button>
+    <p>Não tem conta? <a href="#" onclick="showRegister()">Cadastre-se</a></p>
+</div>
+
+<div class="register-container" style="display:none;">
+    <h1>Cadastro</h1>
+    <input type="text" id="register-nick" placeholder="Nick">
+    <input type="text" id="register-email" placeholder="Email">
+    <input type="password" id="register-password" placeholder="Senha">
+    <button onclick="register()">Cadastrar</button>
+    <p>Já tem conta? <a href="#" onclick="showLogin()">Login</a></p>
+</div>
+
+<!-- Firebase compat -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<script src="script.js"></script>
+<script>
+function showRegister(){
+    document.querySelector(".login-container").style.display="none";
+    document.querySelector(".register-container").style.display="block";
+}
+function showLogin(){
+    document.querySelector(".register-container").style.display="none";
+    document.querySelector(".login-container").style.display="block";
+}
+</script>
+</body>
+</html>

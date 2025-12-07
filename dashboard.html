@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Gamer - Completo</title>
+<style>
+body { background:#0a0a0a; color:white; margin:0; font-family:Arial; }
+header { background:#111; padding:20px; font-size:26px; text-align:center; box-shadow:0 0 10px #000; }
+.container { display:flex; }
+nav { width:250px; height:100vh; background:#141414; padding:20px; box-shadow:0 0 10px #000; overflow-y:auto; }
+nav button { width:100%; padding:12px; margin-bottom:12px; background:#222; color:white; border:none; cursor:pointer; border-radius:6px; }
+nav button:hover { background:#333; }
+#content { flex:1; padding:20px; }
+.card { background:#191919; padding:20px; border-radius:10px; margin-bottom:20px; }
+.input { width:100%; padding:10px; background:#111; border:1px solid #333; color:white; margin-bottom:10px; border-radius:6px; }
+.send-btn { padding:10px 18px; background:#5200ff; border:none; border-radius:6px; cursor:pointer; color:white; }
+.send-btn:hover { background:#6b27ff; }
+#chat-messages { height:300px; overflow-y:auto; background:#111; padding:8px; margin-top:10px; border-radius:6px; }
+button { cursor:pointer; margin-left:6px; }
+.rank-entry { margin-bottom:6px; padding:8px; background:#151515; border-radius:8px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; }
+.rank-entry span { flex:1; }
+</style>
+</head>
+<body>
+<header>DASHBOARD COMPLETO</header>
+
+<div class="container">
+    <nav>
+        <button onclick="loadPage('home')">🏠 Home</button>
+        <button onclick="loadPage('bedwars')">🛏 BedWars</button>
+        <button onclick="loadPage('freefire')">🔥 Free Fire</button>
+        <button onclick="loadPage('fortnite')">💣 Fortnite</button>
+        <button onclick="loadPage('clashroyale')">⚔ Clash Royale</button>
+        <button onclick="loadPage('rankings')">🏆 Rankings</button>
+        <button onclick="loadPage('validacoes')">✅ Validações Pendentes</button>
+        <button onclick="loadPage('chat')">💬 Chat</button>
+        <button onclick="showProfileModal()">⚙ Editar Perfil</button>
+        <button onclick="logout()">🚪 Sair</button>
+	<div style="text-align:center; margin-top:20px;">
+   	<a href="https://discord.gg/XfS4byaVQM" target="_blank">
+        <img src="https://icones.pro/pt/logotipo-do-discord-icone-png-preto/" 
+        alt="Discord" 
+        style="width:50px; height:50px; cursor:pointer;">
+    	</a>
+	</div>
+    </nav>
+
+    <div id="content">
+        <div class="card">Carregando...</div>
+    </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

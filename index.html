@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login / Cadastro Dashboard Gamer</title>
+<style>
+body { background:#0a0a0a; color:white; font-family:Arial; display:flex; justify-content:center; align-items:center; height:100vh; margin:0; }
+.card { background:#191919; padding:30px; border-radius:10px; width:350px; box-shadow:0 0 15px #000; text-align:center; }
+.card h2 { margin-bottom:20px; }
+.input { width:100%; padding:10px; background:#111; border:1px solid #333; color:white; margin-bottom:15px; border-radius:6px; }
+.send-btn { width:100%; padding:12px; background:#5200ff; border:none; border-radius:6px; cursor:pointer; color:white; font-size:16px; }
+.send-btn:hover { background:#6b27ff; }
+.toggle-btn { margin-top:10px; background:#333; }
+</style>
+</head>
+<body>
+
+<div class="card">
+    <h2 id="form-title">Login</h2>
+    <input id="nick" placeholder="Digite seu nick" class="input">
+    <input id="userid" placeholder="Digite seu ID" class="input">
+    <button id="action-btn" class="send-btn">Entrar</button>
+    <button id="toggle-btn" class="send-btn toggle-btn">Cadastrar-se</button>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyCkmqu60VH5bsHE4c8J0fZesiPGBFJprw0",
+  authDomain: "dark-academy-dc5f4.firebaseapp.com",
+  databaseURL: "https://dark-academy-dc5f4-default-rtdb.firebaseio.com",
+  projectId: "dark-academy-dc5f4",
+  storageBucket: "dark-academy-dc5f4.firebasestorage.app",
+  messagingSenderId: "182340690460",
+  appId: "1:182340690460:web:ee84ca564efb931a7535d9",
+  measurementId: "G-66Q9VXG8CE"
+};
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
+
+let isLogin = true;
+
+const formTitle = document.getElementById("form-title");
+const actionBtn = document.getElementById("action-btn");
+const toggleBtn = document.getElementById("toggle-btn");
+
+toggleBtn.onclick = () => {
+  isLogin = !isLogin;
+  formTitle.textContent = isLogin ? "Login" : "Cadastro";
+  actionBtn.textContent = isLogin ? "Entrar" : "Cadastrar";
+  toggleBtn.textContent = isLogin ? "Cadastrar-se" : "Voltar ao login";
+};
+
+actionBtn.onclick = () => {
+  const nick = document.getElementById("nick").value.trim();
+  const userId = document.getElementById("userid").value.trim();
+
+  if(!nick || !userId){
+    alert("Preencha os dois campos!");
+    return;
+  }
+
+  if(isLogin){
+    // Login
+    database.ref("users/"+userId).once("value").then(snap=>{
+      if(snap.exists()){
+        localStorage.setItem("currentUser", userId);
+        localStorage.setItem("currentNick", nick);
+        window.location.href = "dashboard.html";
+      } else {
+        alert("Usuário não encontrado. Cadastre-se primeiro!");
+      }
+    });
+  } else {
+    // Cadastro
+    database.ref("users/"+userId).once("value").then(snap=>{
+      if(snap.exists()){
+        alert("Usuário já existe! Tente outro ID.");
+      } else {
+        database.ref("users/"+userId).set({nick:nick, profilePic:""});
+        localStorage.setItem("currentUser", userId);
+        localStorage.setItem("currentNick", nick);
+        alert("Cadastro realizado com sucesso!");
+        window.location.href = "dashboard.html";
+      }
+    });
+  }
+};
+</script>
+
+</body>
+</html>
